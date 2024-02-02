@@ -2,8 +2,7 @@
 
 #### egg data ####
 #loading data 
-setwd("~/Noas data")
-egg_mass_counts <- read.csv("IDENT_oviposition.csv")
+egg_mass_counts <- read.csv("input/IDENT_oviposition.csv")
 
 # quick visualizations
 summary(egg_mass_counts)
