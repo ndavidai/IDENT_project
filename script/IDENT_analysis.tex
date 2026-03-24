@@ -1,0 +1,596 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+\documentclass[
+]{article}
+\usepackage{xcolor}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{graphicx}
+\makeatletter
+\newsavebox\pandoc@box
+\newcommand*\pandocbounded[1]{% scales image to fit in text height/width
+  \sbox\pandoc@box{#1}%
+  \Gscale@div\@tempa{\textheight}{\dimexpr\ht\pandoc@box+\dp\pandoc@box\relax}%
+  \Gscale@div\@tempb{\linewidth}{\wd\pandoc@box}%
+  \ifdim\@tempb\p@<\@tempa\p@\let\@tempa\@tempb\fi% select the smaller of both
+  \ifdim\@tempa\p@<\p@\scalebox{\@tempa}{\usebox\pandoc@box}%
+  \else\usebox{\pandoc@box}%
+  \fi%
+}
+% Set default figure placement to htbp
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\usepackage{bookmark}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  pdftitle={IDENT\_analysis.R},
+  pdfauthor={Noa},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+\title{IDENT\_analysis.R}
+\author{Noa}
+\date{2026-03-20}
+
+\begin{document}
+\maketitle
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(janitor)                       }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Attaching package: 'janitor'
+\end{verbatim}
+
+\begin{verbatim}
+## The following objects are masked from 'package:stats':
+## 
+##     chisq.test, fisher.test
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(dplyr)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Attaching package: 'dplyr'
+\end{verbatim}
+
+\begin{verbatim}
+## The following objects are masked from 'package:stats':
+## 
+##     filter, lag
+\end{verbatim}
+
+\begin{verbatim}
+## The following objects are masked from 'package:base':
+## 
+##     intersect, setdiff, setequal, union
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(ggplot2)}
+\FunctionTok{library}\NormalTok{(esquisse)}
+\FunctionTok{library}\NormalTok{(ordinal)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Attaching package: 'ordinal'
+\end{verbatim}
+
+\begin{verbatim}
+## The following object is masked from 'package:dplyr':
+## 
+##     slice
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(tidyr)}
+\FunctionTok{library}\NormalTok{(ordinal)}
+\FunctionTok{library}\NormalTok{(DHARMa)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## This is DHARMa 0.4.6. For overview type '?DHARMa'. For recent changes, type news(package = 'DHARMa')
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(Matrix)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Attaching package: 'Matrix'
+\end{verbatim}
+
+\begin{verbatim}
+## The following objects are masked from 'package:tidyr':
+## 
+##     expand, pack, unpack
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(lme4)}
+\FunctionTok{library}\NormalTok{(glmmTMB)}
+\FunctionTok{library}\NormalTok{(forcats)}
+
+\CommentTok{\#loading data }
+\NormalTok{IDENT\_data }\OtherTok{\textless{}{-}} \FunctionTok{read.csv}\NormalTok{(}\StringTok{"input/IDENT\_oviposition\_clean.csv"}\NormalTok{)}
+
+\FunctionTok{summary}\NormalTok{(IDENT\_data)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##        X          tree_species       quadrant_color      plot_code        
+##  Min.   :  1.00   Length:184         Length:184         Length:184        
+##  1st Qu.: 46.75   Class :character   Class :character   Class :character  
+##  Median : 92.50   Mode  :character   Mode  :character   Mode  :character  
+##  Mean   : 92.50                                                           
+##  3rd Qu.:138.25                                                           
+##  Max.   :184.00                                                           
+##  dbh_diameter_cm    tree_height_low_50cm_high_50_cm number_of_egg_masses
+##  Length:184         Length:184                      Min.   : 0.000      
+##  Class :character   Class :character                1st Qu.: 0.000      
+##  Mode  :character   Mode  :character                Median : 1.000      
+##                                                     Mean   : 2.288      
+##                                                     3rd Qu.: 3.000      
+##                                                     Max.   :19.000      
+##  areas_of_egg_masses total_area_estimate estimated_number_of_eggs
+##  Length:184          Mode:logical        Mode:logical            
+##  Class :character    NA's:184            NA's:184                
+##  Mode  :character                                                
+##                                                                  
+##                                                                  
+##                                                                  
+##   observers            notes          
+##  Length:184         Length:184        
+##  Class :character   Class :character  
+##  Mode  :character   Mode  :character  
+##                                       
+##                                       
+## 
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{str}\NormalTok{(IDENT\_data)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 'data.frame':    184 obs. of  12 variables:
+##  $ X                              : int  1 2 3 4 5 6 7 8 9 10 ...
+##  $ tree_species                   : chr  "Red oak" "Red oak" "Red oak" "Red oak" ...
+##  $ quadrant_color                 : chr  "White" "White" "White" "White" ...
+##  $ plot_code                      : chr  "4N6" "4N6" "4N6" "4N6" ...
+##  $ dbh_diameter_cm                : chr  "9.8" "9.8" "6.6" "6.6" ...
+##  $ tree_height_low_50cm_high_50_cm: chr  "Low" "High" "Low" "High" ...
+##  $ number_of_egg_masses           : int  0 4 0 1 0 19 0 5 1 7 ...
+##  $ areas_of_egg_masses            : chr  "0" "D + E + E + D" "0" "D" ...
+##  $ total_area_estimate            : logi  NA NA NA NA NA NA ...
+##  $ estimated_number_of_eggs       : logi  NA NA NA NA NA NA ...
+##  $ observers                      : chr  "Michael and Carly" "Michael and Carly" "Michael and Carly" "Michael and Carly" ...
+##  $ notes                          : chr  "0" "0" "0" "0" ...
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{unique}\NormalTok{(IDENT\_data}\SpecialCharTok{$}\NormalTok{tree\_species)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "Red oak"     "Red oak "    "White pine"  "Sugar maple" "Red"        
+## [6] "Spruce"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# combine all \textquotesingle{}Red oak\textquotesingle{} variations}
+\NormalTok{IDENT\_data }\OtherTok{\textless{}{-}} \FunctionTok{replace}\NormalTok{(IDENT\_data, IDENT\_data }\SpecialCharTok{==}\StringTok{\textquotesingle{}Red\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}Red oak\textquotesingle{}}\NormalTok{)}
+\NormalTok{IDENT\_data }\OtherTok{\textless{}{-}} \FunctionTok{replace}\NormalTok{(IDENT\_data, IDENT\_data }\SpecialCharTok{==}\StringTok{\textquotesingle{}Red oak \textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}Red oak\textquotesingle{}}\NormalTok{)}
+
+\FunctionTok{unique}\NormalTok{(IDENT\_data}\SpecialCharTok{$}\NormalTok{tree\_species)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "Red oak"     "White pine"  "Sugar maple" "Spruce"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\#check data structure}
+\FunctionTok{table}\NormalTok{(IDENT\_data}\SpecialCharTok{$}\NormalTok{tree\_species, IDENT\_data}\SpecialCharTok{$}\NormalTok{quadrant\_color)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##              
+##               Blue Red oak White Yellow
+##   Red oak        6      24    24     12
+##   Spruce         2       0     0      0
+##   Sugar maple   28       4     4     10
+##   White pine    18      10    20     22
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{table}\NormalTok{(IDENT\_data}\SpecialCharTok{$}\NormalTok{number\_of\_egg\_masses, IDENT\_data}\SpecialCharTok{$}\NormalTok{tree\_height)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##     
+##      High Low
+##   0    27  40
+##   1    16  23
+##   2    12  13
+##   3     8   8
+##   4     6   5
+##   5     5   0
+##   7     5   1
+##   8     4   1
+##   9     2   1
+##   10    1   0
+##   11    2   0
+##   18    2   0
+##   19    2   0
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{names}\NormalTok{(IDENT\_data)[}\DecValTok{6}\NormalTok{] }\OtherTok{\textless{}{-}} \StringTok{"tree\_height"}
+
+
+\CommentTok{\# Data visualization {-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}}
+
+\CommentTok{\#visualize data}
+
+\CommentTok{\#library(esquisse)}
+\CommentTok{\#esquisser(IDENT\_data)}
+
+
+\NormalTok{IDENT\_data }\SpecialCharTok{\%\textgreater{}\%}
+ \FunctionTok{ggplot}\NormalTok{() }\SpecialCharTok{+}
+ \FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ tree\_species, }\AttributeTok{y =}\NormalTok{ number\_of\_egg\_masses) }\SpecialCharTok{+}
+ \FunctionTok{geom\_col}\NormalTok{(}\AttributeTok{fill =} \StringTok{"\#BF661A"}\NormalTok{) }\SpecialCharTok{+}
+ \FunctionTok{theme\_minimal}\NormalTok{() }\SpecialCharTok{+}
+ \FunctionTok{theme}\NormalTok{(}\AttributeTok{axis.title.y =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{size =} \DecValTok{18}\DataTypeTok{L}\NormalTok{, }\AttributeTok{face =} \StringTok{"bold"}\NormalTok{), }\AttributeTok{axis.title.x =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{size =} \DecValTok{18}\DataTypeTok{L}\NormalTok{, }
+ \AttributeTok{face =} \StringTok{"bold"}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{IDENT_analysis_files/figure-latex/unnamed-chunk-1-1.pdf}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggplot}\NormalTok{(IDENT\_data) }\SpecialCharTok{+}
+ \FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ number\_of\_egg\_masses, }\AttributeTok{y =}\NormalTok{ tree\_species) }\SpecialCharTok{+}
+ \FunctionTok{geom\_boxplot}\NormalTok{(}\AttributeTok{fill =} \StringTok{"\#B9228B"}\NormalTok{) }\SpecialCharTok{+}
+ \FunctionTok{theme\_classic}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{IDENT_analysis_files/figure-latex/unnamed-chunk-1-2.pdf}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# mixed effects models {-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}}
+
+\NormalTok{m\_count }\OtherTok{\textless{}{-}} \FunctionTok{glmmTMB}\NormalTok{(}
+\NormalTok{  number\_of\_egg\_masses }\SpecialCharTok{\textasciitilde{}}\NormalTok{ tree\_species }\SpecialCharTok{+}\NormalTok{ tree\_height }\SpecialCharTok{+}\NormalTok{ (}\DecValTok{1} \SpecialCharTok{|}\NormalTok{ plot\_code) }\SpecialCharTok{+}
+\NormalTok{    (}\DecValTok{1} \SpecialCharTok{|}\NormalTok{ quadrant\_color),}
+  \AttributeTok{family =}\NormalTok{ nbinom2,}
+  \AttributeTok{data =}\NormalTok{ IDENT\_data}
+\NormalTok{)}
+\FunctionTok{summary}\NormalTok{(m\_count)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  Family: nbinom2  ( log )
+## Formula:          
+## number_of_egg_masses ~ tree_species + tree_height + (1 | plot_code) +  
+##     (1 | quadrant_color)
+## Data: IDENT_data
+## 
+##       AIC       BIC    logLik -2*log(L)  df.resid 
+##     711.7     737.4    -347.9     695.7       176 
+## 
+## Random effects:
+## 
+## Conditional model:
+##  Groups         Name        Variance  Std.Dev. 
+##  plot_code      (Intercept) 1.433e-01 3.785e-01
+##  quadrant_color (Intercept) 1.607e-09 4.009e-05
+## Number of obs: 184, groups:  plot_code, 7; quadrant_color, 4
+## 
+## Dispersion parameter for nbinom2 family (): 1.05 
+## 
+## Conditional model:
+##                         Estimate Std. Error z value Pr(>|z|)    
+## (Intercept)              1.48369    0.26057   5.694 1.24e-08 ***
+## tree_speciesSpruce      -0.04855    0.86078  -0.056  0.95503    
+## tree_speciesSugar maple -0.24839    0.33808  -0.735  0.46251    
+## tree_speciesWhite pine  -1.02399    0.31391  -3.262  0.00111 ** 
+## tree_heightLow          -0.82536    0.19465  -4.240 2.23e-05 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{sim\_res }\OtherTok{\textless{}{-}} \FunctionTok{simulateResiduals}\NormalTok{(m\_count)}
+\FunctionTok{plot}\NormalTok{(sim\_res)}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{IDENT_analysis_files/figure-latex/unnamed-chunk-1-3.pdf}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{testDispersion}\NormalTok{(sim\_res)}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{IDENT_analysis_files/figure-latex/unnamed-chunk-1-4.pdf}}
+
+\begin{verbatim}
+## 
+##  DHARMa nonparametric dispersion test via sd of residuals fitted vs.
+##  simulated
+## 
+## data:  simulationOutput
+## dispersion = 0.76984, p-value = 0.816
+## alternative hypothesis: two.sided
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{testZeroInflation}\NormalTok{(sim\_res)}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{IDENT_analysis_files/figure-latex/unnamed-chunk-1-5.pdf}}
+
+\begin{verbatim}
+## 
+##  DHARMa zero-inflation test via comparison to expected zeros with
+##  simulation under H0 = fitted model
+## 
+## data:  simulationOutput
+## ratioObsSim = 1.0194, p-value = 0.928
+## alternative hypothesis: two.sided
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{testUniformity}\NormalTok{(sim\_res)}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{IDENT_analysis_files/figure-latex/unnamed-chunk-1-6.pdf}}
+
+\begin{verbatim}
+## 
+##  Asymptotic one-sample Kolmogorov-Smirnov test
+## 
+## data:  simulationOutput$scaledResiduals
+## D = 0.041839, p-value = 0.9041
+## alternative hypothesis: two-sided
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#Dispersion p = 0.84 {-} Good; Zero{-}inflation p = 0.888 {-} not present;}
+\CommentTok{\#Uniformity p = 0.859 {-} Good}
+
+\NormalTok{m\_count\_interaction }\OtherTok{\textless{}{-}} \FunctionTok{glmmTMB}\NormalTok{(}
+\NormalTok{  number\_of\_egg\_masses }\SpecialCharTok{\textasciitilde{}}\NormalTok{ tree\_species }\SpecialCharTok{*}\NormalTok{ tree\_height }\SpecialCharTok{+}\NormalTok{ (}\DecValTok{1} \SpecialCharTok{|}\NormalTok{ plot\_code) }\SpecialCharTok{+}
+\NormalTok{    (}\DecValTok{1} \SpecialCharTok{|}\NormalTok{ quadrant\_color),}
+  \AttributeTok{family =}\NormalTok{ nbinom2,}
+  \AttributeTok{data =}\NormalTok{ IDENT\_data}
+\NormalTok{)}
+\FunctionTok{summary}\NormalTok{(m\_count\_interaction)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  Family: nbinom2  ( log )
+## Formula:          
+## number_of_egg_masses ~ tree_species * tree_height + (1 | plot_code) +  
+##     (1 | quadrant_color)
+## Data: IDENT_data
+## 
+##       AIC       BIC    logLik -2*log(L)  df.resid 
+##     691.0     726.4    -334.5     669.0       173 
+## 
+## Random effects:
+## 
+## Conditional model:
+##  Groups         Name        Variance  Std.Dev. 
+##  plot_code      (Intercept) 1.148e-01 3.388e-01
+##  quadrant_color (Intercept) 7.772e-10 2.788e-05
+## Number of obs: 184, groups:  plot_code, 7; quadrant_color, 4
+## 
+## Dispersion parameter for nbinom2 family (): 1.45 
+## 
+## Conditional model:
+##                                        Estimate Std. Error z value Pr(>|z|)    
+## (Intercept)                              1.8795     0.2532   7.424 1.14e-13 ***
+## tree_speciesSpruce                      -0.8397     1.0302  -0.815 0.415023    
+## tree_speciesSugar maple                 -0.9016     0.3634  -2.481 0.013110 *  
+## tree_speciesWhite pine                  -1.9027     0.3495  -5.443 5.22e-08 ***
+## tree_heightLow                          -2.0381     0.2952  -6.904 5.05e-12 ***
+## tree_speciesSpruce:tree_heightLow        2.0381     1.4074   1.448 0.147576    
+## tree_speciesSugar maple:tree_heightLow   1.6935     0.4475   3.784 0.000154 ***
+## tree_speciesWhite pine:tree_heightLow    2.1219     0.4200   5.052 4.37e-07 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{sim\_res\_2 }\OtherTok{\textless{}{-}} \FunctionTok{simulateResiduals}\NormalTok{(m\_count\_interaction)}
+\FunctionTok{plot}\NormalTok{(sim\_res\_2)}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{IDENT_analysis_files/figure-latex/unnamed-chunk-1-7.pdf}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{testDispersion}\NormalTok{(sim\_res\_2)}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{IDENT_analysis_files/figure-latex/unnamed-chunk-1-8.pdf}}
+
+\begin{verbatim}
+## 
+##  DHARMa nonparametric dispersion test via sd of residuals fitted vs.
+##  simulated
+## 
+## data:  simulationOutput
+## dispersion = 0.67802, p-value = 0.576
+## alternative hypothesis: two.sided
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{testZeroInflation}\NormalTok{(sim\_res\_2)}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{IDENT_analysis_files/figure-latex/unnamed-chunk-1-9.pdf}}
+
+\begin{verbatim}
+## 
+##  DHARMa zero-inflation test via comparison to expected zeros with
+##  simulation under H0 = fitted model
+## 
+## data:  simulationOutput
+## ratioObsSim = 1.0286, p-value = 0.84
+## alternative hypothesis: two.sided
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{testUniformity}\NormalTok{(sim\_res\_2)}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{IDENT_analysis_files/figure-latex/unnamed-chunk-1-10.pdf}}
+
+\begin{verbatim}
+## 
+##  Asymptotic one-sample Kolmogorov-Smirnov test
+## 
+## data:  simulationOutput$scaledResiduals
+## D = 0.042988, p-value = 0.8858
+## alternative hypothesis: two-sided
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#Dispersion p = 0.58 {-} slight underdispersion, no real issue; }
+\CommentTok{\#Zero{-}inflation p = 0.84 {-} not present;}
+\CommentTok{\#Uniformity p = 0.886 {-} Good}
+\end{Highlighting}
+\end{Shaded}
+
+
+\end{document}

@@ -36,8 +36,8 @@ names(IDENT_data)[6] <- "tree_height"
 
 #visualize data
 
-library(esquisse)
-esquisser(IDENT_data)
+#library(esquisse)
+#esquisser(IDENT_data)
 
 
 IDENT_data %>%
